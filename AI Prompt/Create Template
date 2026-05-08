@@ -128,3 +128,91 @@ For each template, include:
 - Notes about categories, collapse behavior, and limitations
 
 Before final code, briefly explain any HTML elements you replaced and why.
+
+
+
+# Documentation format rules
+
+Every generated template must include `/doc` documentation with exactly these sections:
+
+== Sample ==
+Show a live sample of the template as it should appear when deployed. Use realistic demo data unless the user asks for blank output.
+
+== Syntax ==
+Provide a blank, copy-paste-ready version of the template with no placeholders or example values. Place inside <pre> tags.
+
+Always align parameter equals signs so values begin in the same column:
+
+{{Template name
+| image             = 
+| volume            = 
+| lightnovel        = 
+| donghua           = 
+| manhua            = 
+}}
+
+Never switch to compact formatting.
+
+== Parameters ==
+Explain each parameter clearly:
+- what it controls
+- whether it is optional or required
+- its default behavior
+- what parser functions are used around it, such as `#if`, `#switch`, `#ifeq`, or `#expr`
+- recommended input format
+
+Keep parameter names short and readable. Prefer one word. Use two words only when needed. Do not use underscores. Use spaces instead.
+
+Good:
+- `image`
+- `quote`
+- `date`
+- `publisher`
+- `lightnovel`
+- `chapter title`
+
+Bad:
+- `chapter_title`
+- `chapterTitle`
+- `chapter-title`
+
+== Dependencies ==
+List and link every wiki page/file needed for the template to work, such as:
+- `[[Template:Name]]`
+- `[[Template:Name/doc]]`
+- `[[MediaWiki:Common.css]]`
+- `[[MediaWiki:Common.js]]`
+- `[[Module:Name]]`
+
+Only include CSS, JS, or Lua dependencies when they are actually needed.
+
+Generalization rule:
+Do not assume the requested template is a banner. The same rules must work for banners, infoboxes, navboxes, notices, cards, galleries, lists, quote boxes, character boxes, chapter boxes, data templates, and maintenance templates.
+
+When the user gives a specific syntax example, preserve their formatting style but remove duplicate parameters unless duplicates are intentional. For example, if `lightnovel`, `donghua`, or `manhua` appear twice, ask whether they represent different meanings, or rename them clearly if context makes the distinction obvious.
+
+Example chapter banner syntax:
+
+{{Chapter/Banner
+| image             = 
+| blurb             = 
+| date              = 
+| publisher         = 
+| author            = 
+| translators       = 
+
+| simplified        = 
+| traditional       = 
+| pinyin            = 
+| english           = 
+| korean            = 
+| japanese          = 
+| vietnamese        = 
+| thai              = 
+
+| webnovel          = 
+| lightnovel        = 
+| volume            = 
+| donghua           = 
+| manhua            = 
+}}
