@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiki Banner Infobox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0;1&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "Genshin";
+      font-style: normal;
+      font-weight: normal;
+      src: url("https://static.wikia.nocookie.net/gensin-impact/images/6/65/Genshin_Impact_Font.woff/revision/latest?cb=20220825065214") format("woff");
+      font-display: swap;
+    }
+
+    :root {
+      /* Fandom / wiki theme variables with local fallbacks for previewing outside Fandom. */
+      --sv-page-bg: var(--theme-page-background-color, #102b2d);
+      --sv-page-bg-secondary: var(--theme-page-background-color--secondary, #0d3a3d);
+      --sv-community-header: var(--theme-community-header-color, #155d64);
+      --sv-accent: var(--theme-accent-color, #00a6ad);
+      --sv-accent-label: var(--theme-accent-label-color, #ffffff);
+      --sv-border: var(--theme-border-color, rgba(151, 218, 220, 0.28));
+      --sv-link: var(--theme-link-color, #77bdc0);
+      --sv-text: var(--theme-page-text-color, #f7fbfb);
+      --sv-muted: color-mix(in srgb, var(--sv-text) 72%, transparent);
+      --sv-faint: color-mix(in srgb, var(--sv-text) 30%, transparent);
+
+      --bg: var(--sv-page-bg);
+      --panel: color-mix(in srgb, var(--sv-page-bg-secondary) 94%, transparent);
+      --panel-dark: color-mix(in srgb, var(--sv-page-bg) 94%, black 6%);
+      --bar: var(--sv-community-header);
+      --accent: var(--sv-accent);
+      --accent-soft: var(--sv-link);
+      --line: color-mix(in srgb, var(--sv-border) 48%, transparent);
+      --line-strong: var(--sv-border);
+      --text: var(--sv-text);
+      --muted: var(--sv-muted);
+      --faint: var(--sv-faint);
+      --radius: 14px;
+      --heading-font: "Genshin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --body-font: "Rubik", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body-font);
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .wiki-card {
+      width: min(1240px, 100%);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel-dark);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+      position: relative;
+      transition: box-shadow 160ms ease;
+    }
+
+    .wiki-card.is-hovering {
+      box-shadow: 0 34px 95px rgba(0, 0, 0, 0.42);
+    }
+
+    .wiki-card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 16px;
+      background: var(--accent);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero {
+      height: 340px;
+      min-height: 340px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.48) 0%, rgba(0,0,0,.22) 44%, rgba(0,0,0,.44) 100%),
+        linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.08)),
+        url("https://static.wikia.nocookie.net/scum-villain/images/0/0b/Donghua_Episode_6-_Peak_Lord_Sick_Bed_Meeting.png") center / cover no-repeat;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, transparent 0%, rgba(255,255,255,.12) 46%, transparent 58%);
+      transform: translateX(calc(var(--shine, -140) * 1%));
+      opacity: .45;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .wiki-card.is-hovering .hero::after {
+      animation: heroShine 900ms ease forwards;
+    }
+
+    @keyframes heroShine {
+      from { transform: translateX(-140%); }
+      to { transform: translateX(140%); }
+    }
+
+    .badges {
+      display: flex;
+      gap: 10px;
+      position: absolute;
+      top: 0;
+      left: 58px;
+    }
+
+    .badge {
+      width: 70px;
+      height: 70px;
+      min-height: 70px;
+      padding: 14px 6px 16px;
+      border-radius: 0;
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--sv-link) 92%, white 8%),
+          color-mix(in srgb, var(--sv-link) 76%, var(--sv-community-header) 24%)
+        );
+      clip-path: polygon(0 0, 100% 0, 100% 93%, 50% 86%, 0 93%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      filter: drop-shadow(0 8px 14px rgba(0,0,0,.2));
+      font-family: var(--heading-font);
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 700;
+      cursor: help;
+      position: relative;
+      overflow: visible;
+      transition: height 180ms ease, min-height 180ms ease, padding 180ms ease, filter 180ms ease, background 180ms ease;
+    }
+
+    .badge:hover,
+    .badge.is-active {
+      height: 80px;
+      min-height: 80px;
+      padding-bottom: 21px;
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,.38));
+      background:
+        linear-gradient(180deg,
+          color-mix(in srgb, var(--sv-link) 72%, white 28%),
+          color-mix(in srgb, var(--sv-accent) 66%, var(--sv-link) 34%)
+        );
+    }
+
+    .badge small {
+      display: block;
+      margin-top: 5px;
+      font-family: var(--body-font);
+      font-size: 9px;
+      line-height: 1.05;
+      text-transform: none;
+      letter-spacing: .01em;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(-3px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .badge:hover small,
+    .badge.is-active small {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-copy {
+      position: absolute;
+      left: 42px;
+      bottom: 3em;
+      max-width: 50em;
+      text-shadow: 0 2px 12px rgba(0,0,0,.45);
+    }
+
+    .eyebrow {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-family: var(--heading-font);
+      font-size: clamp(42px, 5vw, 60px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .quote {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+      font-size: clamp(16px, 1.7vw, 19px);
+      line-height: 1.18;
+      font-style: italic;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    .quote::before {
+      content: "";
+      width: 4px;
+      flex: 0 0 4px;
+      background: var(--accent-soft);
+    }
+
+    .native-title {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      text-align: right;
+      font-family: var(--heading-font);
+      font-weight: normal;
+      line-height: 1.25;
+      font-size: 24px;
+      text-shadow: 0 2px 10px rgba(0,0,0,.55);
+      cursor: help;
+    }
+
+    .native-title .hanzi {
+      display: block;
+    }
+
+    .native-title span:not(.hanzi) {
+      display: block;
+      font-family: var(--heading-font);
+      font-size: 12px;
+      margin-top: 6px;
+      font-weight: normal;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      pointer-events: none;
+    }
+
+    .native-title:hover span:not(.hanzi),
+    .native-title.is-active span:not(.hanzi) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1.05fr 2fr 1fr;
+      background:
+        radial-gradient(circle at 50% -20%, color-mix(in srgb, var(--sv-community-header) 48%, transparent), transparent 42%),
+        linear-gradient(90deg,
+          color-mix(in srgb, var(--sv-page-bg-secondary) 82%, black 18%) 0%,
+          color-mix(in srgb, var(--sv-page-bg-secondary) 96%, var(--sv-community-header) 4%) 32%,
+          color-mix(in srgb, var(--sv-page-bg-secondary) 88%, black 12%) 68%,
+          color-mix(in srgb, var(--sv-page-bg) 92%, black 8%) 100%
+        );
+      padding-bottom: 16px;
+      max-height: 420px;
+      overflow: hidden;
+      transition: max-height 260ms ease, padding-bottom 260ms ease;
+    }
+
+    .section {
+      border-right: 1px solid var(--line-strong);
+      min-width: 0;
+    }
+
+    .section:last-child { border-right: 0; }
+
+    .section-title {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      background: var(--bar);
+      color: var(--sv-accent-label);
+      font-family: var(--heading-font);
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .credits-list .row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      padding: 10px 18px;
+      min-height: 56px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+      transition: background-color 150ms ease, transform 150ms ease;
+      cursor: copy;
+    }
+
+    .credits-list .row:hover,
+    .credits-list .row.is-active,
+    .nomenclature-main > div:hover,
+    .nomenclature-main > div.is-active,
+    .nomenclature-missing > div:hover,
+    .nomenclature-missing > div.is-active {
+      background-color: color-mix(in srgb, var(--sv-link) 13%, transparent);
+      box-shadow: inset 3px 0 0 color-mix(in srgb, var(--sv-link) 86%, white 14%);
+    }
+
+    .credits-list .row:last-child { border-bottom: 0; }
+
+    .icon {
+      font-family: 'Material Symbols Rounded';
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+      font-size: 26px;
+      line-height: 1;
+      color: #fff;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .label {
+      font-size: 14px;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .value {
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .value em { font-style: italic; font-weight: 600; }
+
+    .nomenclature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 200px;
+    }
+
+    .nomenclature-main,
+    .nomenclature-missing {
+      display: grid;
+      align-content: start;
+    }
+
+    .nomenclature-main > div,
+    .nomenclature-missing > div {
+      padding: 10px 22px;
+      min-height: 56px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background-color 150ms ease;
+      cursor: copy;
+    }
+
+    .nomenclature-main > div:last-child,
+    .nomenclature-missing > div:last-child {
+      border-bottom: 0;
+    }
+
+    .nomenclature-main {
+      border-right: 1px solid var(--line);
+    }
+
+    .nomenclature-missing {
+      background: rgba(0, 0, 0, 0.09);
+    }
+
+    .nomenclature-missing .label,
+    .nomenclature-missing .value {
+      color: var(--faint);
+    }
+
+    .nomenclature-main > div,
+    .nomenclature-missing > div {
+      position: relative;
+    }
+
+    .metadata-copied::after {
+      content: "Copied";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--sv-link) 86%, black 14%);
+      color: var(--sv-accent-label);
+      font-size: 11px;
+      font-weight: 700;
+      opacity: 0;
+      animation: copiedToast 900ms ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes copiedToast {
+      0% { opacity: 0; transform: translateY(-50%) translateX(4px); }
+      18% { opacity: 1; transform: translateY(-50%) translateX(0); }
+      78% { opacity: 1; transform: translateY(-50%) translateX(0); }
+      100% { opacity: 0; transform: translateY(-50%) translateX(4px); }
+    }
+
+    .adaptations .row {
+      grid-template-columns: 44px 1fr;
+      min-height: 56px;
+      padding-block: 10px;
+    }
+
+    .footer-chevron {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 44px;
+      height: 16px;
+      translate: -50% 0;
+      color: var(--accent-soft);
+      opacity: .8;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .toggle {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 30px;
+      z-index: 4;
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    .toggle:checked ~ .meta { max-height: 420px; }
+    .toggle:not(:checked) ~ .meta {
+      max-height: 0;
+      padding-bottom: 16px;
+    }
+
+    .toggle:not(:checked) ~ .footer-chevron {
+      transform: rotate(180deg);
+    }
+
+    @media (max-width: 860px) {
+      body { padding: 14px; }
+      .hero { height: 340px; min-height: 340px; }
+      .badges { left: 28px; }
+      .hero-copy {
+        left: 28px;
+        right: 28px;
+        bottom: 3em;
+        max-width: none;
+      }
+      .native-title { right: 24px; font-size: 20px; }
+      .meta { grid-template-columns: 1fr; }
+      .section { border-right: 0; border-bottom: 1px solid var(--line-strong); }
+      .section:last-child { border-bottom: 0; }
+      .nomenclature-grid { grid-template-columns: 1fr; }
+      .nomenclature-main { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <article class="wiki-card">
+    <!-- Uncheck this input for the collapsed state. -->
+    <input class="toggle" type="checkbox" checked aria-label="Toggle metadata panel" />
+
+    <header class="hero">
+      <div class="badges" aria-label="Novel status badges">
+        <div class="badge">1st<small>Volume</small></div>
+        <div class="badge">L3<small>Novel</small></div>
+        <div class="badge">E6<small>Episode</small></div>
+      </div>
+
+      <div class="native-title">
+        <span class="hanzi">「悪俗設定」<br />「恶俗设定」</span>
+        <span>Èsú shèdìng</span>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">Chapter 14 of the web novel</div>
+        <h1>Vulgar Settings</h1>
+        <div class="quote">
+          <div>
+            So to get rid of the poison I have to xxx with the protagonist?!<br />
+            Isn't there another way?!
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="meta" aria-label="Novel metadata">
+      <div class="section">
+        <div class="section-title">Credits</div>
+        <div class="credits-list">
+          <div class="row">
+            <span class="icon">calendar_month</span>
+            <div><div class="label">Date</div><div class="value">July 17, 2015</div></div>
+          </div>
+          <div class="row">
+            <span class="icon">menu_book</span>
+            <div><div class="label">Publisher</div><div class="value">JJWXC</div></div>
+          </div>
+          <div class="row">
+            <span class="icon">draw</span>
+            <div><div class="label">Author</div><div class="value">Mò Xiāng Tóng Xiù（墨香铜臭）</div></div>
+          </div>
+          <div class="row">
+            <span class="icon">translate</span>
+            <div><div class="label">Translators</div><div class="value">BC Novels</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Nomenclature</div>
+        <div class="nomenclature-grid">
+          <div class="nomenclature-main">
+            <div><div class="label">Simplified Chinese</div><div class="value">番外：打飞机奇遇记 1</div></div>
+            <div><div class="label">Traditional Chinese</div><div class="value">番外：打飛機奇遇記 1</div></div>
+            <div><div class="label">Pinyin</div><div class="value">Fānwài: Dǎfēijī qíyù jì 1</div></div>
+            <div><div class="label">English <em>(fan-translated)</em></div><div class="value">Extra: Airplane's Fortuitous Encounter 1</div></div>
+          </div>
+          <div class="nomenclature-missing">
+            <div><div class="label">Korean</div><div class="value"><em>Missing from wiki</em></div></div>
+            <div><div class="label">Japanese</div><div class="value"><em>Missing from wiki</em></div></div>
+            <div><div class="label">Vietnamese</div><div class="value"><em>Missing from wiki</em></div></div>
+            <div><div class="label">Thai</div><div class="value"><em>Missing from wiki</em></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section adaptations">
+        <div class="section-title">Adaptations</div>
+        <div class="credits-list">
+          <div class="row">
+            <span class="icon">language</span>
+            <div><div class="label">Web novel</div><div class="value">Chapter 73</div></div>
+          </div>
+          <div class="row">
+            <span class="icon">menu_book</span>
+            <div><div class="label">Publisher</div><div class="value">JJWXC</div></div>
+          </div>
+          <div class="row">
+            <span class="icon">tv</span>
+            <div><div class="label" style="color: var(--faint);">Donghua</div><div class="value" style="color: var(--faint);"><em>None in 2026</em></div></div>
+          </div>
+          <div class="row">
+            <span class="icon">chat_bubble</span>
+            <div><div class="label" style="color: var(--faint);">Manhua</div><div class="value" style="color: var(--faint);"><em>None in 2026</em></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <svg class="footer-chevron" viewBox="0 0 64 20" aria-hidden="true">
+      <path d="M4 15L32 5l28 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </article>
+
+  <script>
+    const card = document.querySelector('.wiki-card');
+    const toggle = document.querySelector('.toggle');
+    const hero = document.querySelector('.hero');
+    const badges = document.querySelectorAll('.badge');
+    const nativeTitle = document.querySelector('.native-title');
+    const metadataRows = document.querySelectorAll('.credits-list .row, .nomenclature-main > div, .nomenclature-missing > div');
+
+    hero.addEventListener('pointerenter', () => {
+      card.classList.add('is-hovering');
+    });
+
+    hero.addEventListener('pointerleave', () => {
+      card.classList.remove('is-hovering');
+    });
+
+    badges.forEach((badge) => {
+      badge.addEventListener('pointerenter', () => badge.classList.add('is-active'));
+      badge.addEventListener('pointerleave', () => badge.classList.remove('is-active'));
+    });
+
+    metadataRows.forEach((row) => {
+      row.addEventListener('pointerenter', () => row.classList.add('is-active'));
+      row.addEventListener('pointerleave', () => row.classList.remove('is-active'));
+    });
+
+    nativeTitle.addEventListener('pointerenter', () => nativeTitle.classList.add('is-active'));
+    nativeTitle.addEventListener('pointerleave', () => nativeTitle.classList.remove('is-active'));
+
+    toggle.addEventListener('change', () => {
+      card.dataset.state = toggle.checked ? 'open' : 'closed';
+    });
+
+    const copyFieldValue = async (row) => {
+      const value = row.querySelector('.value');
+      const text = value ? value.textContent.trim() : row.textContent.trim();
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const fallback = document.createElement('textarea');
+        fallback.value = text;
+        fallback.setAttribute('readonly', '');
+        fallback.style.position = 'fixed';
+        fallback.style.opacity = '0';
+        document.body.appendChild(fallback);
+        fallback.select();
+        document.execCommand('copy');
+        fallback.remove();
+      }
+
+      row.classList.remove('metadata-copied');
+      void row.offsetWidth;
+      row.classList.add('metadata-copied');
+      window.setTimeout(() => row.classList.remove('metadata-copied'), 950);
+    };
+
+    metadataRows.forEach((row) => {
+      row.setAttribute('tabindex', '0');
+      row.setAttribute('role', 'button');
+      row.setAttribute('aria-label', `Copy ${row.querySelector('.label')?.textContent.trim() || 'metadata'} value`);
+
+      row.addEventListener('click', () => copyFieldValue(row));
+      row.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          copyFieldValue(row);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
