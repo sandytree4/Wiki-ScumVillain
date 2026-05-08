@@ -86,14 +86,14 @@
     }
 
     .hero {
-      height: 340px;
-      min-height: 340px;
+      height: 16em;
+      min-height: 16em;
       position: relative;
       overflow: hidden;
       background:
         linear-gradient(90deg, rgba(0,0,0,.48) 0%, rgba(0,0,0,.22) 44%, rgba(0,0,0,.44) 100%),
         linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.08)),
-        url("https://static.wikia.nocookie.net/scum-villain/images/0/0b/Donghua_Episode_6-_Peak_Lord_Sick_Bed_Meeting.png") center / cover no-repeat;
+        url("https://static.wikia.nocookie.net/svs-ss/images/8/8e/Donghua_Episode_6-_Peak_Lord_Sick_Bed_Meeting.png/revision/latest?cb=20240803063904") center 34% / 100% auto no-repeat;
     }
 
     .hero::after {
@@ -119,6 +119,7 @@
 
     .badges {
       display: flex;
+      align-items: flex-start;
       gap: 10px;
       position: absolute;
       top: 0;
@@ -126,10 +127,12 @@
     }
 
     .badge {
-      width: 70px;
-      height: 70px;
-      min-height: 70px;
-      padding: 14px 6px 16px;
+      text-decoration: none;
+      color: inherit;
+      width: 3em;
+      height: auto;
+      min-height: 1em;
+      padding: 15px 3px;
       border-radius: 0;
       background:
         linear-gradient(180deg,
@@ -144,10 +147,9 @@
       text-align: center;
       filter: drop-shadow(0 8px 14px rgba(0,0,0,.2));
       font-family: var(--heading-font);
-      font-size: 27px;
+      font-size: 20px;
       line-height: 1;
       font-weight: 700;
-      cursor: help;
       position: relative;
       overflow: visible;
       transition: height 180ms ease, min-height 180ms ease, padding 180ms ease, filter 180ms ease, background 180ms ease;
@@ -155,9 +157,9 @@
 
     .badge:hover,
     .badge.is-active {
-      height: 80px;
-      min-height: 80px;
-      padding-bottom: 21px;
+      height: auto;
+      min-height: 3em;
+      padding-bottom: 26px;
       filter: drop-shadow(0 12px 20px rgba(0,0,0,.38));
       background:
         linear-gradient(180deg,
@@ -194,32 +196,26 @@
       text-shadow: 0 2px 12px rgba(0,0,0,.45);
     }
 
-    .eyebrow {
-      font-size: 22px;
-      font-weight: 800;
-      margin: 0 0 18px;
-    }
-
     h1 {
       margin: 0 0 18px;
       font-family: var(--heading-font);
-      font-size: clamp(42px, 5vw, 60px);
-      line-height: 0.98;
+      font-size: 38px;
+      line-height: 1;
       letter-spacing: -0.04em;
     }
 
-    .quote {
+    .svbi-blurb {
       display: flex;
       gap: 16px;
       align-items: stretch;
-      font-size: clamp(16px, 1.7vw, 19px);
+      font-size: 1.2em;
       line-height: 1.18;
       font-style: italic;
       font-weight: 500;
       margin-bottom: 0;
     }
 
-    .quote::before {
+    .svbi-blurb::before {
       content: "";
       width: 4px;
       flex: 0 0 4px;
@@ -230,13 +226,12 @@
       position: absolute;
       right: 30px;
       top: 25px;
-      text-align: right;
+      text-align: center;
       font-family: var(--heading-font);
       font-weight: normal;
       line-height: 1.25;
       font-size: 24px;
       text-shadow: 0 2px 10px rgba(0,0,0,.55);
-      cursor: help;
     }
 
     .native-title .hanzi {
@@ -263,6 +258,8 @@
 
     .meta {
       display: grid;
+      align-items: stretch;
+      padding-bottom: 16px;
       grid-template-columns: 1.05fr 2fr 1fr;
       background:
         radial-gradient(circle at 50% -20%, color-mix(in srgb, var(--sv-community-header) 48%, transparent), transparent 42%),
@@ -272,8 +269,7 @@
           color-mix(in srgb, var(--sv-page-bg-secondary) 88%, black 12%) 68%,
           color-mix(in srgb, var(--sv-page-bg) 92%, black 8%) 100%
         );
-      padding-bottom: 16px;
-      max-height: 420px;
+      max-height: none;
       overflow: hidden;
       transition: max-height 260ms ease, padding-bottom 260ms ease;
     }
@@ -281,6 +277,8 @@
     .section {
       border-right: 1px solid var(--line-strong);
       min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .section:last-child { border-right: 0; }
@@ -292,9 +290,9 @@
       padding: 0 18px;
       background: var(--bar);
       color: var(--sv-accent-label);
-      font-family: var(--heading-font);
+      font-family: var(--body-font);
       font-size: 18px;
-      font-weight: normal;
+      font-weight: 700;
     }
 
     .credits-list .row {
@@ -307,20 +305,25 @@
       border-bottom: 1px solid var(--line);
       align-items: center;
       transition: background-color 150ms ease, transform 150ms ease;
-      cursor: copy;
     }
 
     .credits-list .row:hover,
     .credits-list .row.is-active,
     .nomenclature-main > div:hover,
-    .nomenclature-main > div.is-active,
-    .nomenclature-missing > div:hover,
-    .nomenclature-missing > div.is-active {
+    .nomenclature-main > div.is-active {
       background-color: color-mix(in srgb, var(--sv-link) 13%, transparent);
       box-shadow: inset 3px 0 0 color-mix(in srgb, var(--sv-link) 86%, white 14%);
     }
 
     .credits-list .row:last-child { border-bottom: 0; }
+
+    .credits-list,
+    .nomenclature-grid,
+    .nomenclature-main,
+    .nomenclature-missing {
+      height: 100%;
+      padding-bottom: 0;
+    }
 
     .icon {
       font-family: 'Material Symbols Rounded';
@@ -352,6 +355,18 @@
       font-weight: 500;
     }
 
+    .value a {
+      color: inherit;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    .value a:hover,
+    .value a:focus-visible {
+      color: var(--accent-soft);
+      text-decoration: underline;
+    }
+
     .value em { font-style: italic; font-weight: 600; }
 
     .nomenclature-grid {
@@ -363,7 +378,8 @@
     .nomenclature-main,
     .nomenclature-missing {
       display: grid;
-      align-content: start;
+      grid-template-rows: repeat(4, 1fr);
+      align-content: stretch;
     }
 
     .nomenclature-main > div,
@@ -375,7 +391,6 @@
       flex-direction: column;
       justify-content: center;
       transition: background-color 150ms ease;
-      cursor: copy;
     }
 
     .nomenclature-main > div:last-child,
@@ -453,10 +468,10 @@
       opacity: 0;
     }
 
-    .toggle:checked ~ .meta { max-height: 420px; }
+    .toggle:checked ~ .meta { max-height: none; }
     .toggle:not(:checked) ~ .meta {
       max-height: 0;
-      padding-bottom: 16px;
+      padding-bottom: 0;
     }
 
     .toggle:not(:checked) ~ .footer-chevron {
@@ -489,9 +504,9 @@
 
     <header class="hero">
       <div class="badges" aria-label="Novel status badges">
-        <div class="badge">1st<small>Volume</small></div>
-        <div class="badge">L3<small>Novel</small></div>
-        <div class="badge">E6<small>Episode</small></div>
+        <a class="badge" href="https://scumvillain.fandom.com/wiki/Novel/Volume/1" target="_blank" rel="noopener noreferrer">1st<small>Volume</small></a>
+        <a class="badge" href="https://scumvillain.fandom.com/wiki/Novel/3" target="_blank" rel="noopener noreferrer">L3<small>Novel</small></a>
+        <a class="badge" href="https://scumvillain.fandom.com/wiki/Donghua/6" target="_blank" rel="noopener noreferrer">E6<small>Episode</small></a>
       </div>
 
       <div class="native-title">
@@ -500,9 +515,8 @@
       </div>
 
       <div class="hero-copy">
-        <div class="eyebrow">Chapter 14 of the web novel</div>
         <h1>Vulgar Settings</h1>
-        <div class="quote">
+        <div class="svbi-blurb">
           <div>
             So to get rid of the poison I have to xxx with the protagonist?!<br />
             Isn't there another way?!
@@ -513,23 +527,23 @@
 
     <section class="meta" aria-label="Novel metadata">
       <div class="section">
-        <div class="section-title">Credits</div>
+        <div class="section-title">Chinese</div>
         <div class="credits-list">
           <div class="row">
             <span class="icon">calendar_month</span>
-            <div><div class="label">Date</div><div class="value">July 17, 2015</div></div>
+            <div><div class="label">Release</div><div class="value">July 09, 2015</div></div>
           </div>
-          <div class="row">
+          <div class="row" data-link="https://www.jjwxc.net/onebook.php?novelid=2228486&chapterid=14">
             <span class="icon">menu_book</span>
             <div><div class="label">Publisher</div><div class="value">JJWXC</div></div>
           </div>
-          <div class="row">
+          <div class="row" data-link="https://scumvillain.fandom.com/wiki/MXTX">
             <span class="icon">draw</span>
             <div><div class="label">Author</div><div class="value">Mò Xiāng Tóng Xiù（墨香铜臭）</div></div>
           </div>
           <div class="row">
             <span class="icon">translate</span>
-            <div><div class="label">Translators</div><div class="value">BC Novels</div></div>
+            <div><div class="label">Translator</div><div class="value"><a href="https://web.archive.org/web/20210418145622/https://cnoveluv.wordpress.com/projects/the-scum-villains-self-saving-system/scum-villain-system-chapter-14/" target="_blank" rel="noopener noreferrer">WorshipperA</a> & <a href="https://web.archive.org/web/20210804230917/https://faelicy.tumblr.com/post/188710872297/chapter-14-enforced-evil-setup" target="_blank" rel="noopener noreferrer">Faelicy</a></div></div>
           </div>
         </div>
       </div>
@@ -538,10 +552,10 @@
         <div class="section-title">Nomenclature</div>
         <div class="nomenclature-grid">
           <div class="nomenclature-main">
-            <div><div class="label">Simplified Chinese</div><div class="value">番外：打飞机奇遇记 1</div></div>
-            <div><div class="label">Traditional Chinese</div><div class="value">番外：打飛機奇遇記 1</div></div>
-            <div><div class="label">Pinyin</div><div class="value">Fānwài: Dǎfēijī qíyù jì 1</div></div>
-            <div><div class="label">English <em>(fan-translated)</em></div><div class="value">Extra: Airplane's Fortuitous Encounter 1</div></div>
+            <div><div class="label">Traditional Chinese</div><div class="value">惡俗設定</div></div>
+            <div><div class="label">Simplified Chinese</div><div class="value">恶俗设定</div></div>
+            <div><div class="label">Pinyin</div><div class="value"><em>Èsú shèdìng</em></div></div>
+            <div><div class="label">English</div><div class="value">Vulgar Settings</div></div>
           </div>
           <div class="nomenclature-missing">
             <div><div class="label">Korean</div><div class="value"><em>Missing from wiki</em></div></div>
@@ -552,25 +566,13 @@
         </div>
       </div>
 
-      <div class="section adaptations">
-        <div class="section-title">Adaptations</div>
-        <div class="credits-list">
-          <div class="row">
-            <span class="icon">language</span>
-            <div><div class="label">Web novel</div><div class="value">Chapter 73</div></div>
-          </div>
-          <div class="row">
-            <span class="icon">menu_book</span>
-            <div><div class="label">Publisher</div><div class="value">JJWXC</div></div>
-          </div>
-          <div class="row">
-            <span class="icon">tv</span>
-            <div><div class="label" style="color: var(--faint);">Donghua</div><div class="value" style="color: var(--faint);"><em>None in 2026</em></div></div>
-          </div>
-          <div class="row">
-            <span class="icon">chat_bubble</span>
-            <div><div class="label" style="color: var(--faint);">Manhua</div><div class="value" style="color: var(--faint);"><em>None in 2026</em></div></div>
-          </div>
+      <div class="section">
+        <div class="section-title" aria-hidden="true"></div>
+        <div class="nomenclature-missing">
+          <div><div class="label">Burmese</div><div class="value"><em>Missing from wiki</em></div></div>
+          <div><div class="label">Russian</div><div class="value"><em>Missing from wiki</em></div></div>
+          <div><div class="label">Italian</div><div class="value"><em>Missing from wiki</em></div></div>
+          <div><div class="label">Spanish</div><div class="value"><em>Missing from wiki</em></div></div>
         </div>
       </div>
     </section>
@@ -587,36 +589,35 @@
     const badges = document.querySelectorAll('.badge');
     const nativeTitle = document.querySelector('.native-title');
     const metadataRows = document.querySelectorAll('.credits-list .row, .nomenclature-main > div, .nomenclature-missing > div');
+    const copyableMetadataRows = [...metadataRows].filter((row) => row.querySelector('.value')?.textContent.trim().toLowerCase() !== 'missing from wiki');
 
-    hero.addEventListener('pointerenter', () => {
-      card.classList.add('is-hovering');
-    });
-
-    hero.addEventListener('pointerleave', () => {
-      card.classList.remove('is-hovering');
-    });
-
-    badges.forEach((badge) => {
-      badge.addEventListener('pointerenter', () => badge.classList.add('is-active'));
-      badge.addEventListener('pointerleave', () => badge.classList.remove('is-active'));
-    });
-
-    metadataRows.forEach((row) => {
+    copyableMetadataRows.forEach((row) => {
       row.addEventListener('pointerenter', () => row.classList.add('is-active'));
       row.addEventListener('pointerleave', () => row.classList.remove('is-active'));
     });
 
-    nativeTitle.addEventListener('pointerenter', () => nativeTitle.classList.add('is-active'));
-    nativeTitle.addEventListener('pointerleave', () => nativeTitle.classList.remove('is-active'));
 
     toggle.addEventListener('change', () => {
       card.dataset.state = toggle.checked ? 'open' : 'closed';
     });
 
+    const openMetadataLink = (row) => {
+      const link = row.dataset.link;
+      if (link) {
+        window.open(link, '_blank', 'noopener,noreferrer');
+        return true;
+      }
+      return false;
+    };
+
+    document.querySelectorAll('.value a').forEach((link) => {
+      link.addEventListener('click', (event) => event.stopPropagation());
+    });
+
     const copyFieldValue = async (row) => {
       const value = row.querySelector('.value');
       const text = value ? value.textContent.trim() : row.textContent.trim();
-      if (!text) return;
+      if (!text || text.toLowerCase() === 'missing from wiki') return;
 
       try {
         await navigator.clipboard.writeText(text);
@@ -638,15 +639,20 @@
       window.setTimeout(() => row.classList.remove('metadata-copied'), 950);
     };
 
-    metadataRows.forEach((row) => {
+    copyableMetadataRows.forEach((row) => {
+      row.style.cursor = 'copy';
       row.setAttribute('tabindex', '0');
       row.setAttribute('role', 'button');
       row.setAttribute('aria-label', `Copy ${row.querySelector('.label')?.textContent.trim() || 'metadata'} value`);
 
-      row.addEventListener('click', () => copyFieldValue(row));
+      row.addEventListener('click', () => {
+        if (openMetadataLink(row)) return;
+        copyFieldValue(row);
+      });
       row.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
+          if (openMetadataLink(row)) return;
           copyFieldValue(row);
         }
       });
